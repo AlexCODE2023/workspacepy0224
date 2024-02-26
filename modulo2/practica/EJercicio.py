@@ -34,6 +34,7 @@ def prom_dict(dic):
     prom = None
     prom2 = None
     for i in range(len(dic)):
+        prom2 = 0
         for ji in dic[i]["cursos"].values():
             prom = 0
             # LLegamos al las notas
@@ -51,7 +52,7 @@ def prom_dict(dic):
 lst_dic = []  
 notas_fin = []
 op = None
-while op != "0":
+while op != "9":
     op = input("Ingresa opcion: ")
     match op:
         case "1":
@@ -70,5 +71,13 @@ while op != "0":
             print(nota)
             print()
         case "5":
+            i= 0
+            # Usa un index por separado range(len(notas_fin))
+            print("Notas Aprobadas: ")
+            for nota in notas_fin:
+                if nota > 11:
+                    print("{} {}".format(lst_dic[i]["nombre"],lst_dic[i]["correo"]))
+                i += 1
             print()
+        
 
