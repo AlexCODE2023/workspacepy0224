@@ -33,7 +33,7 @@ def prom_dict(dic):
     arr = []
     prom = None
     prom2 = None
-    for i in range(len(dic)):
+    for i in range(len(dic)): #dic es una lista
         prom2 = 0
         for ji in dic[i]["cursos"].values():
             prom = 0
@@ -44,10 +44,18 @@ def prom_dict(dic):
             #arr.append(prom)
             prom2 += prom
         prom2 /= len(dic[i]["cursos"])
+        #print(len(dic[i]["cursos"]))
         arr.append(prom2)
-    print(arr)
+    #print(arr)
     return arr
 
+def mayor():
+    a = float(input("Ingresa Un numero: "))
+    b = float(input("Ingresa otro numero: "))
+    if a< b:
+        return b
+    else:
+        return a
 
 lst_dic = []  
 notas_fin = []
@@ -66,18 +74,46 @@ while op != "9":
             print()
         case "4":
 
-            nota = prom_dict(lst_dic)
+            notas_fin = prom_dict(lst_dic)
             #notas_fin.append(nota)
-            print(nota)
+            print(notas_fin)
             print()
         case "5":
             i= 0
             # Usa un index por separado range(len(notas_fin))
             print("Notas Aprobadas: ")
-            for nota in notas_fin:
-                if nota > 11:
-                    print("{} {}".format(lst_dic[i]["nombre"],lst_dic[i]["correo"]))
-                i += 1
+            if notas_fin != []:
+                for nota in notas_fin:
+                    if nota > 11:
+                        print("{} {}".format(lst_dic[i]["nombre"],lst_dic[i]["correo"]))
+                    i += 1
+            else:
+                print("Genera notas OPCION 4 ")
             print()
+        case "6":
+            i= 0
+            # Usa un index por separado range(len(notas_fin))
+            print("Notas Desaprobadas: ")
+            if notas_fin != []:    
+                for nota in notas_fin:
+                    if nota <= 11:
+                        print("{} {}".format(lst_dic[i]["nombre"],lst_dic[i]["correo"]))
+                    i += 1
+            else:
+                print("Genera notas OPCION 4 ")
+            print()
+        case "7":
+            i = int(input("Ingresa tu numero: "))
+            def rangoN(num:int):
+                arr = []
+                for i in range(1,num+1):
+                    if i % 2 == 0 and i % 5 == 0 and i% 7 == 0:
+                        arr.append(i)
+                print(arr)
+                print(len(arr))
+            rangoN(i)
+        case "8":
+            mayor()
+            
         
 
