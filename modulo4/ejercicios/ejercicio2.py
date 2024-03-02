@@ -18,10 +18,11 @@ newList=[]
 for i in data:
     patron=r'\n'
     informacion=i.split(';')
+    # separa la informacion por columnas
     print(informacion)
     dictPersonas={
         'name':informacion[1]+" "+informacion[2],
-        'fecha_nacimiento':re.sub(patron,"",informacion[3])
+        'fecha_nacimiento':re.sub(patron,"",informacion[3])# patron, remplazo, texto
     }
     newList.append(dictPersonas)
 
