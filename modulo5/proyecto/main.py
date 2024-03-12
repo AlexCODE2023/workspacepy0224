@@ -1,12 +1,4 @@
-
-
-
-
-def initApp():
-    while True:
-        pass
-
-
+from view.view import initApp
 
 if __name__=='__main__':
     initApp()
