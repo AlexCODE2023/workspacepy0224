@@ -8,13 +8,15 @@ from migrations.init import exportZip
 from servicios.loadData import loadData
 from servicios.transformation import TransformationOrders
 import os
+import numpy as np
+from tkinter import messagebox
 class GraphApp:
     def __init__(self, master):
         self.master = master
         self.master.title("Tkinter Graph Example")
         self.master.geometry("800x600")
         # Cargar la imagen del logo
-        self.logo_image = Image.open("C://Users//User//Desktop//courseWorkspace//workspacepy0224//modulo5//proyecto//imagenes//LOGO-DATUX.png")  # Reemplaza "logo.png" con la ruta de tu imagen
+        self.logo_image = Image.open("C:/Users/DELL-SOPORTE/miniconda3/workspace/pythonWorkpace/workspacepy0224/modulo5/proyecto/imagenes/LOGO-DATUX.png")  # Reemplaza "logo.png" con la ruta de tu imagen
         self.logo_image = self.logo_image.resize((250, 100))
         self.logo_image = ImageTk.PhotoImage(self.logo_image)
         self.ruta=''
@@ -34,7 +36,7 @@ class GraphApp:
         self.generate_button_2 = ttk.Button(button_container, text="Cargar Data", command=self.loadData, style="Large.TButton")
         self.generate_button_2.pack(side=tk.TOP, padx=5, pady=10)
         # Botón 
-        self.generate_button_1 = ttk.Button(button_container, text="Reporte Relacion Edad Consumo", command=self.generate_graph, style="Large.TButton")
+        self.generate_button_1 = ttk.Button(button_container, text="Reporte de Relacion Edad Promedio", command=self.generate_graph, style="Large.TButton")
         self.generate_button_1.pack(side=tk.TOP, padx=5, pady=15)
         # Marco para contener el gráfico
         self.graph_frame = ttk.Frame(self.master)
@@ -48,14 +50,17 @@ class GraphApp:
         print(data)
         # Crear un objeto de figura de Matplotlib
         fig, ax = plt.subplots(figsize=(10, 6))
+        color = np.where(data['Age'] < 30, "yellow", "lightblue")
         #columnas del grafico
         #ax.scatter(data['Age'], data['mean'], alpha=0.7)
-        ax.scatter(data['Age'], data['mean'], alpha=0.7, c=data['user_id'], cmap='viridis')
+        ax.scatter(data['Age'], data['mean'], alpha=0.7, c=color, cmap='viridis')
+        #ax.hist(data['Age'], bins=20, color='blue', alpha=0.7, label='Edad')
+        #ax.pie(data['Sales'], labels=data['Category'], autopct='%1.1f%%', startangle=90)
         # Añadir etiquetas y título al gráfico (cambiar)
         ax.set_xlabel('Edad')
         ax.set_ylabel('Promedio de Ventas')
         ## (cambiar) titulo
-        ax.set_title('Relación entre Edad y Promedio de Ventas por Usuario')
+        ax.set_title('Relación entre Edad / Promedio de Ventas por Usuario')
 
         # Crear el objeto de lienzo de Tkinter
         canvas = FigureCanvasTkAgg(fig, master=self.graph_frame)
@@ -81,9 +86,24 @@ class GraphApp:
         self.success_label.config(text=msg, fg="green")
         pass
 
+
+def delete_window(root):
+    # Procedimiento invocado cuando el usuario
+    # intenta cerrar la ventana.
+    close = messagebox.askyesno(
+        message="¿Está seguro de que quiere cerrar la aplicación?",
+        title="Confirmar cierre"
+    )
+    if close:
+        # Cerrar la ventana.
+        root.destroy()
+        pass
+
+
 def initApp():
     root = tk.Tk()
     app = GraphApp(root)
+    #root.protocol("WM_DELETE_WINDOW", delete_window(root))
     root.mainloop()
 
 
